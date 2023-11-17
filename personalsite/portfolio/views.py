@@ -5,8 +5,9 @@ from .models import Project
 
 
 def index(request):
-    projects = Project.objects.values('tag_id', 'title', 'description', 'image_name')
-    context = {'projects': projects}
+    projects = Project.objects.values('order', 'title', 'description', 'image_name')
+    sorted_projects = sorted(projects, key=lambda p: p['order'])
+    context = {'projects': sorted_projects}
     return render(request, 'portfolio/index.html', context)
 
 

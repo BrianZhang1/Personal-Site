@@ -118,7 +118,7 @@ function handlePortfolioClick(event, data) {
 function updateDisplayInformation(projectId, data) {
     let targetProject = null;
     for (project of data.projects) {
-        if (projectId === project.tag_id) {
+        if (projectId === project.title + '-portfolio-item-id') {
             targetProject = project;
         }
     }

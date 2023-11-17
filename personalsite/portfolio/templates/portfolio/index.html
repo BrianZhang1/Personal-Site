@@ -55,7 +55,7 @@
             <h5 id="see-more-details-text" class="height-transition">(Click a project to see more details.)</h5>
             <div id="portfolio-area" class="">
             {% for p in projects %}
-                <button id="{{ p.tag_id }}">
+                <button id="{{ p.title }}-portfolio-item-id">
                     <h3>{{ p.title }}</h3>
                     <p>{{ p.description }}</p>
                     <img src="{% static 'portfolio/images/'|add:p.image_name %}">
