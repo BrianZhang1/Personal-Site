@@ -14,11 +14,6 @@ def index(request):
     return render(request, 'portfolio/index.html', context)
 
 
-def get_model_data(request):
-    projects = {'projects': list(Project.objects.values())}
-    return JsonResponse(projects)
-
-
 class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows projects to be viewed.

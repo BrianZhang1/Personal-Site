@@ -1,12 +1,15 @@
 
 document.addEventListener("DOMContentLoaded", () => {
     let data = null
-    // Use AJAX to get model info from Django
-    fetch('/get_model_data/')
-        .then(response => response.json())
+    fetch('/api/projects/')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+                return response.json();
+        })
         .then(jsondata => {
-            // Do something with the data
-            data = jsondata;
+            data = jsondata.results;
         })
         .catch(error => console.error('Error:', error));
 
@@ -117,7 +120,7 @@ function handlePortfolioClick(event, data) {
 // update display information depending on project selected
 function updateDisplayInformation(projectId, data) {
     let targetProject = null;
-    for (project of data.projects) {
+    for (project of data) {
         if (projectId === project.title + '-portfolio-item-id') {
             targetProject = project;
         }
