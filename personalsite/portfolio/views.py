@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 
+from rest_framework import viewsets
+
 from .models import Project
+from .serializers import ProjectSerializer
 
 
 def index(request):
@@ -14,3 +17,11 @@ def index(request):
 def get_model_data(request):
     projects = {'projects': list(Project.objects.values())}
     return JsonResponse(projects)
+
+
+class ProjectViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows projects to be viewed.
+    """
+    queryset = Project.objects.all().order_by('order')
+    serializer_class = ProjectSerializer
