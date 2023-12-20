@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  web:
+    image: brian214/personal-site-web:latest
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - static_volume:/var/www/brianis.me/static
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/var/www/brianis.me/static:ro
+    depends_on:
+      - web
+  
+volumes:
+  static_volume:
