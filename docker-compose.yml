@@ -17,6 +17,7 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - static_volume:/var/www/brianis.me/static:ro
+      - /etc/letsencrypt:/etc/letsencrypt
     depends_on:
       - web
   

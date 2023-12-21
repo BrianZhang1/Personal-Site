@@ -3,7 +3,7 @@ name: Deploy to AWS EC2
 on:
   push:
     branches:
-      - main
+      main
 
 jobs:
   deploy:
@@ -19,13 +19,19 @@ jobs:
           echo "${{ secrets.AWS_PRIVATE_KEY }}" > ~/.ssh/key.pem
           chmod 400 ~/.ssh/key.pem
 
-      - name: Connect and Deploy
+      - name: Copy configuration files.
         run: |
-          scp -i ~/.ssh/key.pem nginx/nginx.conf ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/nginx/
-          scp -i ~/.ssh/key.pem docker-compose.yml ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/
-          ssh -i ~/.ssh/key.pem ${{ secrets.USERNAME }}@${{ secrets.HOST }}
-          cd app
-          echo "${{ secrets.SECRET_KEY }}" > .env
-          docker-compose down
-          docker-compose up -d
-          exit
+          scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem nginx/nginx.conf ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/nginx/
+          scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem docker-compose.yml ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/
+
+      - name: Connect and deploy.
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.AWS_PRIVATE_KEY }}
+          script: |
+            cd ~/app
+            echo "${{ secrets.SECRET_KEY }}" > .env
+            docker-compose down
+            docker-compose up -d
