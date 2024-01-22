@@ -34,6 +34,7 @@ h3 {
 }
 
 h5 {
+    font-size: 1.5rem;
     color: gray;
 }
 
@@ -227,7 +228,7 @@ ID-Specific Styles
 }
 
 #see-more-details-text {
-    height: 1vw;
+    height: 1.5vw;
     margin-top: 2vw;
     transition: height 1s ease, margin-top 1s ease;
     overflow: hidden;
