@@ -86,7 +86,6 @@ function handlePortfolioClick(event, data) {
     }
     else {
         // initial display area fade left animation
-        displayArea.classList.add("darken");
         initialDisplay.classList.add("fade-left");
         initialDisplay.classList.add("opacity-0");
 
@@ -97,7 +96,6 @@ function handlePortfolioClick(event, data) {
                 itemDisplay.classList.remove("opacity-0");
                 backButton.onclick = () => {
                     document.querySelector("#item-display > iframe").src = ""; // stop video if it's playing
-                    displayArea.classList.remove("darken");
                     itemDisplay.classList.add("opacity-0");
                     setTimeout(() => {
                         itemDisplay.classList.add("display-none");
