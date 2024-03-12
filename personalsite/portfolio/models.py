@@ -9,3 +9,6 @@ class Project(models.Model):
     image = models.ImageField()
     demo_url = models.CharField(max_length=250)
     repo_url = models.CharField(max_length=250)
+
+    def __str__(self):
+        return f'{self.id}: {self.title}'
