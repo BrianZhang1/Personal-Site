@@ -8,7 +8,7 @@ from .serializers import ProjectSerializer
 
 
 def index(request):
-    projects = Project.objects.values('order', 'title', 'description', 'image_name')
+    projects = Project.objects.values('order', 'title', 'description', 'image')
     sorted_projects = sorted(projects, key=lambda p: p['order'])
     context = {'projects': sorted_projects}
     return render(request, 'portfolio/index.html', context)

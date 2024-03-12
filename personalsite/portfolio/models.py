@@ -6,6 +6,6 @@ class Project(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=100)
     long_description = models.CharField(max_length=250)
-    image_name = models.CharField(max_length=100)
+    image = models.ImageField()
     demo_url = models.CharField(max_length=250)
     repo_url = models.CharField(max_length=250)
