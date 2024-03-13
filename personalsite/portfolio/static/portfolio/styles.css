@@ -251,8 +251,29 @@ ID-Specific Styles
 }
 
 #see-more-details-text {
-    height: 1.5vw;
+    height: auto;
     margin-top: 2vw;
     transition: height 1s ease, margin-top 1s ease;
     overflow: hidden;
+}
+
+#landscape-popup {
+    display: none;
+    position: absolute;
+    width: 80%;
+    height: auto;
+    left: 50%;
+    top: 10%;
+    transform: translate(-50%, 0);
+    z-index: 1;
+    font-size: 5vw;
+    background-color: rgb(228, 228, 228);
+    border-radius: 5px;
+    padding: 4vw;
+}
+
+@media screen and (max-width: 400px) {
+    #landscape-popup {
+        display: block;
+    }
 }
