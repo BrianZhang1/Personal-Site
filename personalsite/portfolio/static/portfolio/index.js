@@ -14,6 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => console.error('Error:', error));
 
     window.scrollTo({top: 0, behavior: "smooth"});
+
+    const dismissOrientationPopup = document.querySelector("#landscape-popup");
+    const dismissOrientationPopupButton = document.querySelector("#landscape-popup-button");
+    dismissOrientationPopupButton.onclick = () => {
+        dismissOrientationPopup.remove();
+    };
+
     const nameHeader = document.querySelector("#name-display");
     const text = "brian_zhang";
 
