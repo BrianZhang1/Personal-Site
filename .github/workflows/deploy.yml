@@ -39,6 +39,7 @@ jobs:
       - name: Copy configuration files.
         run: |
           scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem nginx/nginx.conf ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/nginx/
+          scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem prometheus/prometheus.yml ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/prometheus/
           scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem docker-compose.yml ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/
 
       - name: Connect and deploy.

@@ -27,6 +27,22 @@ services:
     depends_on:
       - web
 
+
+  nginx_prometheus_exporter:
+    image: nginx/nginx-prometheus-exporter:latest
+    ports: 
+      - "9113:9113"
+    command: --nginx.scrape-uri=http://nginx:8080/stub_status
+  
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+  
+
   certbot:
     image: certbot/certbot:latest
     volumes:
