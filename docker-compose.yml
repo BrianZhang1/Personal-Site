@@ -37,6 +37,7 @@ services:
     image: prom/prometheus:latest
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-storage:/prometheus
   
 
   grafana:
@@ -53,4 +54,5 @@ services:
   
 volumes:
   static_volume:
+  prometheus-storage:
   grafana-storage:
