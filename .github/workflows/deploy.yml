@@ -54,3 +54,4 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/personal-site-web:latest
             docker-compose down
             docker-compose up -d
+            docker exec app-web-1 python manage.py collectstatic --noinput
