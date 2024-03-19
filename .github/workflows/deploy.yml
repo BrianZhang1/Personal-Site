@@ -22,13 +22,21 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push
+      - name: Build and push django app
         uses: docker/build-push-action@v5
         with:
           context: personalsite/
           file: personalsite/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/personal-site-web:latest
+
+      - name: Build and push fluentd
+        uses: docker/build-push-action@v5
+        with:
+          context: fluentd/
+          file: fluentd/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/fluentd
 
       - name: Create RSA Key
         run: |
@@ -40,7 +48,7 @@ jobs:
         run: |
           scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem nginx/nginx.conf ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/nginx/
           scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem prometheus/prometheus.yml ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/prometheus/
-          scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem fluentd/fluentd.conf ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/fluentd/
+          scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem fluentd/fluent.conf ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/fluentd/
           scp -o 'StrictHostKeyChecking no' -i ~/.ssh/key.pem docker-compose.yml ${{ secrets.USERNAME }}@${{ secrets.HOST }}:app/
 
       - name: Connect and deploy.

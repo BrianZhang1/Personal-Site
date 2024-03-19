@@ -27,6 +27,7 @@ services:
       - ./certbot/conf/:/etc/nginx/ssl/:ro
     depends_on:
       - web
+      - grafana
 
 
   nginx_prometheus_exporter:
@@ -50,12 +51,10 @@ services:
     image: grafana/grafana-enterprise
     volumes:
       - grafana-storage:/var/lib/grafana
-    depends_on:
-      - prometheus
 
 
   fluentd:
-    image: fluent/fluentd:edge-debian
+    image: brian214/fluentd
     volumes:
       - nginx-logs:/var/log/nginx;
       - fluentd-tmp:/tmp/fluentd
