@@ -25,9 +25,14 @@ services:
       - ./media:/var/www/brianis.me/media:ro
       - ./certbot/www/:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
+    logging:
+      driver: fluentd
+      options:
+        tag: "nginx"
     depends_on:
       - web
       - grafana
+      - fluentd
 
 
   nginx_prometheus_exporter:
@@ -42,6 +47,8 @@ services:
     volumes:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-storage:/prometheus
+    ports:
+      - "9090:9090"
     depends_on:
       - nginx_prometheus_exporter
       - fluentd
@@ -59,17 +66,18 @@ services:
       - nginx-logs:/var/log/nginx;
       - fluentd-tmp:/tmp/fluentd
       - ./fluentd:/fluentd/etc
-    depends_on:
-      - nginx
+    ports:
+      - "24231:24231"
+      - "24224:24224"
 
-  
+
 
   certbot:
     image: certbot/certbot:latest
     volumes:
       - ./certbot/www/:/var/www/certbot/:rw
       - ./certbot/conf/:/etc/letsencrypt/:rw
-  
+
 volumes:
   static_volume:
   prometheus-storage:
