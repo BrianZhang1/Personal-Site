@@ -10,7 +10,7 @@ services:
     volumes:
       - static_volume:/var/www/brianis.me/static
       - ./media:/var/www/brianis.me/media
-      - ./data:/app/data
+      - ./config/settings.py:/app/personalsite/settings.py
 
   nginx:
     image: nginx:latest
@@ -21,7 +21,7 @@ services:
     volumes:
       - nginx-logs:/var/log/nginx;
       - static_volume:/var/www/brianis.me/static:ro
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
       - ./media:/var/www/brianis.me/media:ro
       - ./certbot/www/:/var/www/certbot/:ro
       - ./certbot/conf/:/etc/nginx/ssl/:ro
@@ -45,7 +45,7 @@ services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-storage:/prometheus
     ports:
       - "9090:9090"
@@ -65,7 +65,7 @@ services:
     volumes:
       - nginx-logs:/var/log/nginx;
       - fluentd-tmp:/tmp/fluentd
-      - ./fluentd:/fluentd/etc
+      - ./config/fluent.conf:/fluentd/etc/fluent.conf
     ports:
       - "24231:24231"
       - "24224:24224"
