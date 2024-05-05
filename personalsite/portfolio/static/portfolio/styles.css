@@ -116,6 +116,11 @@ General Styles
     display: none;
 }
 
+.socials-img {
+    display: inline;
+    height: 2em;
+}
+
 .inline-img {
     display: inline;
     height: 1em;
